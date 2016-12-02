@@ -1,5 +1,5 @@
 import arcade
-from models import World, Ship
+from models import World, Ship, Gold
 
 SCREEN_WIDTH = 600
 SCREEN_HEIGHT = 600
@@ -24,16 +24,17 @@ class SpaceGameWindow(arcade.Window):
         super().__init__(width, height)
         arcade.set_background_color(arcade.color.BLACK)
         self.world = World(width, height)
-        # self.ship_sprite = arcade.Sprite('images/ship.png')
+        self.gold = Gold(self, 400, 400)
         self.ship_sprite = ModelSprite('images/ship.png', model=self.world.ship)
+        self.gold_sprite = ModelSprite('images/gold.png', model=self.world.gold)
 
     def on_draw(self):
         arcade.start_render()
         self.ship_sprite.draw()
+        self.gold_sprite.draw()
 
     def animate(self, delta):
         self.world.animate(delta)
-        # self.ship_sprite.set_position(self.world.ship.x, self.world.ship.y)
 
     def on_key_press(self, key, key_modifiers):
         self.world.on_key_press(key, key_modifiers)
